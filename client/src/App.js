@@ -5,6 +5,8 @@ import './App.css';
 import InputTodo from './components/InputTodo';
 import ListTodos from './components/ListTodos';
 
+export const base_url="https://api.shoporganic.life/"
+
 function App() {
   return <Fragment>
     <div className="container">

@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { base_url } from '../App';
 
 function EditTodo({ todo }) {
 
@@ -9,7 +10,7 @@ function EditTodo({ todo }) {
         e.preventDefault();
         try {
             const body = { description };
-            const response = await fetch(`http://localhost:8000/todos/${todo.todo_id}`, {
+            const response = await fetch(`${base_url}todos/${todo.todo_id}`, {
                 method: "PUT",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify(body)

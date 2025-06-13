@@ -1,8 +1,8 @@
 const express = require('express');
-const dotenv = require("dotenv")
+require("dotenv").config();
 const cors = require('cors');
 const pool = require('./db')
-
+const path=require('path')
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(express.json());
 
 // ROUTES 
 
-// create a todo 
+  
 app.post('/todos', async (req, res) => {
     try {
 
@@ -119,6 +119,22 @@ app.delete('/todos/:id', async (req, res) => {
 
 });
 
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/todos')) {
+      // Let it fall through to 404 or appropriate handler
+      return next();
+    } else {
+      res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    }
+  });
+
+  // ✅ Optional: Handle unmatched API routes
+app.use((req, res) => {
+    res.status(404).json({ message: 'Route not found' });
+  });
+  
+  
 
 // PORT 
 const port = process.env.PORT || 8000
