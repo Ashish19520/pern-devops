@@ -2,8 +2,6 @@ const express = require('express');
 require("dotenv").config();
 const cors = require('cors');
 const pool = require('./db')
-const path=require('path')
-
 const app = express();
 
 // middleware 
@@ -119,21 +117,6 @@ app.delete('/todos/:id', async (req, res) => {
 
 });
 
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('*', (req, res, next) => {
-    if (req.path.startsWith('/todos')) {
-      // Let it fall through to 404 or appropriate handler
-      return next();
-    } else {
-      res.sendFile(path.join(__dirname, 'build', 'index.html'));
-    }
-  });
-
-  // ✅ Optional: Handle unmatched API routes
-app.use((req, res) => {
-    res.status(404).json({ message: 'Route not found' });
-  });
-  
   
 
 // PORT 
